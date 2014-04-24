@@ -22,7 +22,7 @@ void GLWidget::paintGL()
 {
 
 
-pole();
+pole(12);
 kolo();
 
 

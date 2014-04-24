@@ -11,12 +11,12 @@ public:
 
 void initializeGL();
 void paintGL();
-void pole()
+void pole(int r)
 {
      glClear(GL_COLOR_BUFFER_BIT);
     glLineWidth(2);
 
-    int rozmiar=15;//TU ZMIENIAMY ROZMIAR GRY
+    int rozmiar=r;//TU ZMIENIAMY ROZMIAR GRY
      float x =-0.99;
     float y=0.5;
     float x1=rozmiar*0.04+x;
@@ -49,6 +49,7 @@ void pole()
     }
     }
 
+
 }
 void kolo()
 {
@@ -77,13 +78,14 @@ void kolo()
 
 
 
+
 }
 };
 
 
 
 
-#endif GLWIDGET_H
+#endif // GLWIDGET_H
 /*wymiary:*/
 // * lewy dolny róg = glVertex2f(-0.99,-0.99);
 //   * lewy gorny róg =    glVertex2f(-0.99,0.4563);
