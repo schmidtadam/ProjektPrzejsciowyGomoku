@@ -18,8 +18,6 @@ public:
 private slots:
     void on_pushButton_2_clicked();
 
-    void on_rozmiar_valueChanged(int arg1);
-
 private:
     Ui::MainWindow *ui;
 };

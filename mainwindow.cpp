@@ -18,9 +18,3 @@ void MainWindow::on_pushButton_2_clicked()
 {
     ui->pole->show();
 }
-
-void MainWindow::on_rozmiar_valueChanged(int arg1)
-{
-    int x = arg1;
-
-  }
