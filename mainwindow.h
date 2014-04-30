@@ -3,6 +3,10 @@
 
 #include <QMainWindow>
 
+QT_BEGIN_NAMESPACE
+class QLabel;
+QT_END_NAMESPACE
+
 namespace Ui {
 class MainWindow;
 }
@@ -14,6 +18,7 @@ class MainWindow : public QMainWindow
 public:
     explicit MainWindow(QWidget *parent = 0);
     ~MainWindow();
+    bool eventFilter(QObject *obj, QEvent *event);
 
 private slots:
     void on_pushButton_2_clicked();

@@ -3,17 +3,24 @@
 
 #include <QGLWidget>
 #include <math.h>
+#include <mainwindow.h>
+#include <QMouseEvent>
 class GLWidget : public QGLWidget
 {
     Q_OBJECT
 public:
     explicit GLWidget(QWidget *parent = 0);
 
+
+
+
 void initializeGL();
 void paintGL();
+
 void pole(int r)
-{
-     glClear(GL_COLOR_BUFFER_BIT);
+
+{  
+    glClear(GL_COLOR_BUFFER_BIT);
     glLineWidth(2);
 
     int rozmiar=r;//TU ZMIENIAMY ROZMIAR GRY
@@ -79,7 +86,13 @@ void kolo()
 
 
 
+
 }
+
+
+
+
+
 };
 
 

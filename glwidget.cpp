@@ -1,11 +1,15 @@
 #include "glwidget.h"
 #include <GL/glu.h>
 #include <math.h>
+#include <QMouseEvent>
+#include <string>
 #define PI 3.14159f
 
 GLWidget::GLWidget(QWidget *parent) :
     QGLWidget(parent)
 {
+
+
 }
 
 void GLWidget::initializeGL()
@@ -13,8 +17,8 @@ void GLWidget::initializeGL()
     glClearColor(1,1,1,1);
 glViewport(0,0,1200,640);
 
-}
 
+}
 
 
 
@@ -22,21 +26,19 @@ void GLWidget::paintGL()
 {
 
 
-pole(12);
+pole(15);
 kolo();
 
-
-
-
-
-
-
-
-// budowanie koła
-
-
-
 }
+
+
+
+
+
+
+
+
+
 
 
 
