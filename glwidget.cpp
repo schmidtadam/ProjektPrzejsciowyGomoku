@@ -1,45 +1,33 @@
 #include "glwidget.h"
 #include <GL/glu.h>
 #include <math.h>
-#include <QMouseEvent>
-#include <string>
 #define PI 3.14159f
 
 GLWidget::GLWidget(QWidget *parent) :
     QGLWidget(parent)
 {
-
-
 }
 
 void GLWidget::initializeGL()
 {
     glClearColor(1,1,1,1);
-glViewport(0,0,1200,640);
-
+glViewport(0,0,500,500);
 
 }
+
 
 
 
 void GLWidget::paintGL()
 {
 
+int rozmiar=15;
 
-pole(15);
-kolo();
+pole(rozmiar);
+kolo(rozmiar,wiersz,kolumna);
+
 
 }
-
-
-
-
-
-
-
-
-
-
 
 
 

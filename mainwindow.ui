@@ -9,8 +9,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>552</width>
-    <height>513</height>
+    <width>521</width>
+    <height>700</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -20,74 +20,39 @@
    <widget class="GLWidget" name="pole" native="true">
     <property name="geometry">
      <rect>
-      <x>0</x>
-      <y>10</y>
-      <width>371</width>
-      <height>481</height>
+      <x>10</x>
+      <y>100</y>
+      <width>501</width>
+      <height>500</height>
      </rect>
     </property>
    </widget>
-   <widget class="QWidget" name="layoutWidget">
+   <widget class="QWidget" name="">
     <property name="geometry">
      <rect>
-      <x>380</x>
-      <y>10</y>
-      <width>160</width>
-      <height>56</height>
+      <x>10</x>
+      <y>0</y>
+      <width>501</width>
+      <height>91</height>
      </rect>
     </property>
     <layout class="QHBoxLayout" name="horizontalLayout">
      <item>
-      <layout class="QGridLayout" name="gridLayout">
-       <item row="1" column="0">
-        <widget class="QPushButton" name="pushButton_2">
-         <property name="text">
-          <string>Start</string>
-         </property>
-        </widget>
-       </item>
-       <item row="2" column="0">
-        <widget class="QPushButton" name="pushButton">
-         <property name="text">
-          <string>Koniec</string>
-         </property>
-        </widget>
-       </item>
-      </layout>
+      <widget class="QPushButton" name="pushButton_2">
+       <property name="text">
+        <string>Start</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QPushButton" name="pushButton">
+       <property name="text">
+        <string>Koniec</string>
+       </property>
+      </widget>
      </item>
     </layout>
    </widget>
-   <widget class="QLabel" name="label">
-    <property name="geometry">
-     <rect>
-      <x>380</x>
-      <y>430</y>
-      <width>151</width>
-      <height>16</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>Współrzędne</string>
-    </property>
-   </widget>
-   <widget class="QLabel" name="label_2">
-    <property name="geometry">
-     <rect>
-      <x>380</x>
-      <y>460</y>
-      <width>151</width>
-      <height>16</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>Myszki</string>
-    </property>
-   </widget>
-  </widget>
-  <widget class="QStatusBar" name="statusBar">
-   <property name="mouseTracking">
-    <bool>true</bool>
-   </property>
   </widget>
  </widget>
  <layoutdefault spacing="6" margin="11"/>

@@ -3,104 +3,124 @@
 
 #include <QGLWidget>
 #include <math.h>
-#include <mainwindow.h>
 #include <QMouseEvent>
+
+
+
+
 class GLWidget : public QGLWidget
 {
     Q_OBJECT
 public:
     explicit GLWidget(QWidget *parent = 0);
 
-
-
-
 void initializeGL();
 void paintGL();
+void pole(int r);
+void kolo(int rozmiar,int wiersz, int kolumna);
 
-void pole(int r)
+void mousePressEvent(QMouseEvent *event);
+int kolumna;
+int wiersz;
 
-{  
-    glClear(GL_COLOR_BUFFER_BIT);
-    glLineWidth(2);
+private:
 
-    int rozmiar=r;//TU ZMIENIAMY ROZMIAR GRY
-     float x =-0.99;
-    float y=0.5;
-    float x1=rozmiar*0.04+x;
-    float y1=-rozmiar*0.1+y;
-
-    for(int i =0;i<rozmiar+1;i++)
-    {
-    glBegin(GL_LINE_LOOP);
-    {
-    glColor3f(0,0,0);
-
-        glVertex2f(x,y);
-        glVertex2f(x,y-i*0.1);
-        glVertex2f(x+i*0.04,y-i*0.1);//3
-        glVertex2f(x+i*0.04,y);//4
-
-    glEnd();
-
-
-    glBegin(GL_LINE_LOOP);
-    {
-
-    glVertex2f(x1,y1);
-    glVertex2f(x1,y1+i*0.1);
-    glVertex2f(x1-i*0.04,y1+i*0.1);
-    glVertex2f(x1-i*0.04,y1);
-    glEnd();
-    }
-
-    }
-    }
-
-
-}
-void kolo()
-{
-    float PI=3.1459;
-    float przesuniecie=0.04;
-    float poczatek_tabeli_y=-0.97;
-    float poczatek_tabeli_x=-0.99;
-
-        float fRadius = przesuniecie/2;
-        float fPrecision = 0.05f;
-        float fCenterX = poczatek_tabeli_x+(przesuniecie/2);
-        float fCenterY = poczatek_tabeli_y+(przesuniecie/2);
-
-        glBegin(GL_TRIANGLE_FAN);
-        glVertex3f(fCenterX, fCenterY, 0.0f);
-        for(float fAngle = 0.0f; fAngle <=(2.1f * PI); fAngle += fPrecision)
-        {
-        float fX = fCenterX + (fRadius* static_cast<float>(0.8*sin(fAngle)));
-        float fY = fCenterY + (fRadius* static_cast<float>(1.5*cos(fAngle)));
-
-
-        glColor3f(1.0,0.1,0.1);
-        glVertex3f(fX, fY, 0.0f);
-        }
-        glEnd();
-
-
-
-
-
-}
-
-
-
-
+   QPoint lastPos;
 
 };
+#endif
+
+// /////////////////////////////////////////DEFINICJE METOD//////////////////////////////////////////////
 
 
+// /////////////////////////////////////////tworzenie planszy//////////////////////////////////////////////
+
+inline void GLWidget::pole(int r){
 
 
-#endif // GLWIDGET_H
-/*wymiary:*/
-// * lewy dolny róg = glVertex2f(-0.99,-0.99);
-//   * lewy gorny róg =    glVertex2f(-0.99,0.4563);
-//   * prawy górny róg = glVertex2f(-0.069,0.4563);
-//   *  prawy dolny róg= glVertex2f(-0.069,-0.99);
+   glClear(GL_COLOR_BUFFER_BIT);
+   glLineWidth(2);
+   int rozmiar=r;//TU ZMIENIAMY ROZMIAR GRY
+   float przesuniecie=2000000/rozmiar;
+   przesuniecie=przesuniecie*0.000001;
+   float poczatek_x =-1;
+   float poczatek_y=-1;
+
+ for(int j =0;j<rozmiar;j++)
+ {
+           for(int i =0;i<rozmiar;i++)
+           {
+
+               glBegin(GL_LINE_LOOP);
+                             {
+                             glColor3f(0,0,0);
+
+                                 glVertex2f(poczatek_x+j*przesuniecie       ,poczatek_y+i*przesuniecie);    //1
+                                 glVertex2f(poczatek_x+(j+1)*przesuniecie   ,poczatek_y+i*przesuniecie);    //2
+                                 glVertex2f(poczatek_x+(j+1)*przesuniecie   ,poczatek_y+(i+1)*przesuniecie);//3
+                                 glVertex2f(poczatek_x+j*przesuniecie       ,poczatek_y+(i+1)*przesuniecie);//4
+                              }
+                             glEnd();
+
+
+             }
+
+ }
+ /*ramka tabelki zbędny relikt
+   glBegin(GL_LINE_LOOP);
+       glColor3f(0,0,0);
+
+           glVertex2f(-1,-1);
+           glVertex2f(-1,1);
+           glVertex2f(1,1);//3
+           glVertex2f(1,-1);//4
+
+       glEnd();
+}*/
+}
+
+
+// ///////////////////////////////////////////tworzenie pionków///////////////////////////////////////////////////////////
+
+inline void GLWidget::kolo(int rozmiar,int wiersz, int kolumna){
+
+    wiersz=rozmiar-wiersz+1;
+    float PI=3.1459;
+    float przesuniecie=2000000/rozmiar;
+    przesuniecie=przesuniecie*0.000001;     // przesuniecie koła w tabelce
+    float poczatek_x =-1+przesuniecie/2;    // pierwsze kolo jest ustawiane w innym miejscu niz poczatek tabeli stad to przesuniecie
+    float poczatek_y=-1+przesuniecie/2;
+
+    float fRadius = przesuniecie/2;
+    float fPrecision = 0.05f;
+    float fCenterX = poczatek_x+(kolumna-1)*(przesuniecie);
+    float fCenterY = poczatek_y+(wiersz-1)*(przesuniecie);
+
+    glBegin(GL_TRIANGLE_FAN);
+    glVertex3f(fCenterX, fCenterY, 0.0f);
+    for(float fAngle = 0.0f; fAngle <=(2.1f * PI); fAngle += fPrecision)
+    {
+    float fX = fCenterX + (fRadius* static_cast<float>(sin(fAngle)));
+    float fY = fCenterY + (fRadius* static_cast<float>(cos(fAngle)));
+
+
+    glColor3f(1.0,0.1,0.1);
+    glVertex3f(fX, fY, 0.0f);
+    }
+    glEnd();
+}
+
+// //////////////////////////////////////////proba wlozenia myszki do QGLWidget////////////////////////////////////////////////////////////
+
+inline void GLWidget::mousePressEvent(QMouseEvent *event)
+{
+    lastPos = event->pos();
+short int x=lastPos.x();
+short int y=lastPos.y();
+    wiersz=10;
+    kolumna=5;
+    updateGL();
+
+}
+
+
