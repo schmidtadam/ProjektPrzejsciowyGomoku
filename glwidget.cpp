@@ -15,7 +15,7 @@ void GLWidget::initializeGL()
     Wygrana=0;  //zmienna pomocnicza dotycząca ogólnej wygranej
 
     // /////////////////////////////
-    wygrana=5;  //ilosc pionkow potrzebnych do wygranej
+    wygrana=2;  //ilosc pionkow potrzebnych do wygranej
     // /////////////////////////////
 
 
@@ -65,9 +65,7 @@ void GLWidget::pole(int r)
                                  glVertex2f(poczatek_x+j*przesuniecie       ,poczatek_y+(i+1)*przesuniecie);//4
                               }
                              glEnd();
-
-
-             }
+            }
 
  }
 
@@ -174,121 +172,76 @@ updateGL();
 
 bool GLWidget::sprawdzanie_wygranej(int gracz){
 
-    //sprawdzanie wierszy
-     int wynik=0;
+     int w,k,c,i;
 
-     for(int wiersz=0;wiersz<LICZBA_wierszy;wiersz++){
-        wynik=0;
-         for(int i=0;i<LICZBA_kolumn;i++){
-            if(tab1[wiersz][i]==gracz){
-                wynik++;
+      // Sprawdzanie w poziomie
 
-                if(tab1[wiersz][i+1]==0)
-                {
-                        if(i<LICZBA_kolumn)
-                        {
-                        if (wynik<wygrana)
-                        {
-                                                   wynik=0;
-                 }}}
-                 if (wynik==wygrana){
-                    return 1;
-                 }
-                }
-          }
-     }
+      for(w = 0; w < 15; w++)
+      {
+        c = 1;
+        for(k = 1; k < 15; k++)
+        {
+           if(tab1[w][k-1] == tab1[w][k]) c++;
+           else c = 1;
+
+           if((c == 5) && tab1[w][k])
+
+             return true;
+           }
+        }
+
      // /////////////////////////////////////////////////
-        //sprawdzanie kolumn
+        //sprawdzanie w pionie
 
-    wynik=0;
-     for(int kolumna=0;kolumna<LICZBA_kolumn;kolumna++){
-        wynik=0;
-         for(int j=0;j<LICZBA_kolumn;j++){
-            if(tab1[j][kolumna]==gracz){
-                wynik++;
+      for(k = 0; k < 15; k++)
+       {
+         c = 1;
+         for(w = 1; w < 15; w++)
+         {
+            if(tab1[w-1][k] == tab1[w][k]) c++;
+            else c = 1;
 
-                if(tab1[j+1][kolumna]==0&&j<LICZBA_wierszy&wynik<wygrana)
-                                    wynik=0;
-                 }
-                 if (wynik==wygrana){
-                    return 1;
-                 }
+            if((c == 5) && tab1[w][k])
+
+
+              return true;
             }
-          }
+         }
 
 // ///////////////////////////////////////////////////////
 
         //sprawdzanie skosu takiego->"\"
 
 
-    for(int a=0;a<LICZBA_kolumn;a++){
-            wynik=0;
-            for(int i=0;i<LICZBA_kolumn-a;i++){
+      for(k = 0; k < 11; k++)
+        for(w = 0; w < 11; w++)
+        {
+           c = 1;
+           for(i = 1; i < 5; i++)
+             if(tab1[w+i-1][k+i-1] == tab1[w+i][k+i]) c++;
+             else c = 1;
 
-            if(tab1[a+i][i]==gracz){wynik =wynik+1;}
-            else{wynik=0;}
+           if((c == 5) && tab1[w][k])
 
-                if (wynik==wygrana){
-                    return 1;
-                 }
-
-
-            }
-
-    }
-
-
-    for(int a=0;a<LICZBA_kolumn;a++){
-        wynik=0;
-            for(int i=0;i<LICZBA_kolumn-a;i++){
-
-
-            if(tab1[i][a+i]==gracz){wynik =wynik+1;}
-            else{wynik=0;}
-
-                if (wynik==wygrana){
-                    return 1;
-                 }
-            }
-
-    }
+              return true;
+           }
 
     // ////////////////////////////////////////////////////
     //sprawdzanie skosu takiego->"/"
-        wynik=0;
+for(k = 4; k < 15; k++)
+   for(w = 0; w < 11; w++)
+   {
+      c = 1;
+      for(i = 1; i < 5; i++)
+        if(tab1[w+i-1][k-i+1] == tab1[w+i][k-i]) c++;
+        else c = 1;
 
-    for(int a=0;a<LICZBA_kolumn;a++){
-        wynik=0;
-            for(int i=0;i<a+1;i++){
+      if((c == 5) && tab1[w][k])
+      {
 
-
-                if(tab1[a-i][i]==gracz){wynik =wynik+1;}
-            else{wynik=0;}
-
-                if (wynik==wygrana){
-                                        return 1;
-                 }
-
-            }
-
-    }
-
-
-
-    for(int a=0;a<LICZBA_kolumn;a++){
-        wynik=0;
-            for(int i=0;i<LICZBA_kolumn-a;i++){
-                //cout<<tab1[LICZBA_kolumn-1-i][a+i];
-
-                if(tab1[LICZBA_kolumn-1-i][a+i]==gracz){wynik =wynik+1;}
-            else{wynik=0;}
-
-                if (wynik==wygrana){
-                    return 1;
-                 }
-
-            }
-    }
+         return true;
+      }
+   }
 
 // ////////////////////////////////////////////////////////////////////
      return 0;
