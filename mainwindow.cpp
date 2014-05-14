@@ -8,7 +8,7 @@ MainWindow::MainWindow(QWidget *parent) :
     ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
-   // ui->pole->hide();                   //tu jest warning
+    ui->pole->hide();                   //tu jest warning
 
 }
 

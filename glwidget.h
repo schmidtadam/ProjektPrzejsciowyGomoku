@@ -6,6 +6,7 @@
 #include <QMouseEvent>
 
 
+ class QtLogo;
 
 
 class GLWidget : public QGLWidget
@@ -17,15 +18,32 @@ public:
 void initializeGL();
 void paintGL();
 void pole(int r);
-void kolo(int rozmiar,int wiersz, int kolumna);
-
-void mousePressEvent(QMouseEvent *event);
+void kolo(int rozmiar,int gracz,int wiersz, int kolumna);
+void glutPostRedisplay(void);
+void mouseMoveEvent(QMouseEvent *event);
+void mouseReleaseEvent(QMouseEvent *event);
 int kolumna;
 int wiersz;
+int temp_wiersz;
+int temp_kolumna;
+int gracz;
 
-private:
+// ///////zmienne silnikowe///////
+public:
+static  int const  LICZBA_kolumn = 15;
+static int const  LICZBA_wierszy =15;
+int wygrana;
+int tab1[ LICZBA_kolumn ][ LICZBA_wierszy];
+int Wygrana; //pomocnicza
 
-   QPoint lastPos;
+
+
+// ///////metody silnikowe///////
+void zerowanie_tablicy(int zero);
+void wyswietlanie_tablicy();
+bool zapis_do_tablicy(int wiersz,int kolumna,int gracz);
+bool sprawdzanie_wygranej(int gracz);
+int zero;
 
 };
 #endif
@@ -33,10 +51,21 @@ private:
 // /////////////////////////////////////////DEFINICJE METOD//////////////////////////////////////////////
 
 
-// /////////////////////////////////////////tworzenie planszy//////////////////////////////////////////////
+// /////////////////////////////////////////tworzenie planszy/////////////////////////////////////////////
+
+inline void GLWidget::zerowanie_tablicy(int zero){
+for(int i=0;i<LICZBA_wierszy;i++)
+  {
+    for(int j=0;j<LICZBA_kolumn;j++)
+    {
+       tab1[i][j]=zero;
+
+    }
+ }
+}
+
 
 inline void GLWidget::pole(int r){
-
 
    glClear(GL_COLOR_BUFFER_BIT);
    glLineWidth(2);
@@ -77,13 +106,40 @@ inline void GLWidget::pole(int r){
 
        glEnd();
 }*/
+
+}
+
+
+inline void GLWidget::wyswietlanie_tablicy(){
+
+
+    for(int i=0;i<LICZBA_wierszy;i++)
+   {
+     for(int j=0;j<LICZBA_kolumn;j++)
+     {
+       if(tab1[i][j]==1){kolo(LICZBA_wierszy,1,i+1,j+1);};
+        if(tab1[i][j]==2){kolo(LICZBA_wierszy,2,i+1,j+1);};
+     }
+
+   }
+ }
+
+
+inline bool GLWidget::zapis_do_tablicy(int wiersz,int kolumna,int gracz){
+ bool poprawne;
+    if(tab1[wiersz-1][kolumna-1]==0)
+            { tab1[wiersz-1][kolumna-1]=gracz;
+            poprawne=1;
+            }
+    else{poprawne=0;}
+return poprawne;
 }
 
 
 // ///////////////////////////////////////////tworzenie pionków///////////////////////////////////////////////////////////
 
-inline void GLWidget::kolo(int rozmiar,int wiersz, int kolumna){
-
+inline void GLWidget::kolo(int rozmiar,int gracz,int wiersz, int kolumna){
+    ;
     wiersz=rozmiar-wiersz+1;
     float PI=3.1459;
     float przesuniecie=2000000/rozmiar;
@@ -97,6 +153,12 @@ inline void GLWidget::kolo(int rozmiar,int wiersz, int kolumna){
     float fCenterY = poczatek_y+(wiersz-1)*(przesuniecie);
 
     glBegin(GL_TRIANGLE_FAN);
+    if( gracz==1){glColor3f(1.0f,0.0f,0.0f);}
+    else if( gracz==2){glColor3f(0.0f,1.0f,0.0f);}
+    else if( gracz==3){
+        glColor3f(0.1f,0.1f,0.1f);
+        fRadius=przesuniecie/3;
+    }
     glVertex3f(fCenterX, fCenterY, 0.0f);
     for(float fAngle = 0.0f; fAngle <=(2.1f * PI); fAngle += fPrecision)
     {
@@ -104,23 +166,162 @@ inline void GLWidget::kolo(int rozmiar,int wiersz, int kolumna){
     float fY = fCenterY + (fRadius* static_cast<float>(cos(fAngle)));
 
 
-    glColor3f(1.0,0.1,0.1);
+   // glColor3f(1.0,0.1,0.1);
     glVertex3f(fX, fY, 0.0f);
     }
     glEnd();
+
 }
 
-// //////////////////////////////////////////proba wlozenia myszki do QGLWidget////////////////////////////////////////////////////////////
+// //////////////////////////////////////////pobsługa myszki////////////////////////////////////////////////////////////
 
-inline void GLWidget::mousePressEvent(QMouseEvent *event)
+inline void GLWidget::mouseMoveEvent(QMouseEvent *event)
 {
-    lastPos = event->pos();
-short int x=lastPos.x();
-short int y=lastPos.y();
-    wiersz=10;
-    kolumna=5;
+
+
+    int zx = event->pos().x();
+    int zy = event->pos().y();
+    temp_wiersz=zy/33+1;
+    temp_kolumna=zx/33+1;
     updateGL();
 
 }
 
+inline void GLWidget::mouseReleaseEvent(QMouseEvent *event)
+{
+  int dx = event->pos().x();
+  int dy = event->pos().y();
+  if(dx>0 && dy>0 && dx<500 && dy<500){
+            wiersz=dy/33+1;
+            kolumna=dx/33+1;
 
+            temp_wiersz=dy/33+1;
+            temp_kolumna=dx/33+1;
+  }
+ if(zapis_do_tablicy(wiersz,kolumna,gracz))
+      {
+         if(gracz==1){gracz=2;}
+         else if(gracz==2){gracz=1;};
+      }
+updateGL();
+}
+
+
+// ////////////////////////////////////////////Funkcja sprawdzajaca///////////////////////////////////////////////////////////////////////////////////////
+
+inline bool GLWidget::sprawdzanie_wygranej(int gracz){
+
+    //sprawdzanie wierszy
+     int wynik=0;
+
+     for(int wiersz=0;wiersz<LICZBA_wierszy;wiersz++){
+        wynik=0;
+         for(int i=0;i<LICZBA_kolumn;i++){
+            if(tab1[wiersz][i]==gracz){
+                wynik=wynik+1;
+
+                if(tab1[wiersz][i+1]==0&&i<LICZBA_kolumn&&wynik<wygrana){
+                    wynik=0;
+                 }
+                 if (wynik==wygrana){
+                    return 1;
+                 }
+                }
+          }
+     }
+     // /////////////////////////////////////////////////
+        //sprawdzanie kolumn
+
+    wynik=0;
+     for(int kolumna=0;kolumna<LICZBA_kolumn;kolumna++){
+        wynik=0;
+         for(int j=0;j<LICZBA_kolumn;j++){
+            if(tab1[j][kolumna]==gracz){
+                wynik=wynik+1;
+
+                if(tab1[j+1][kolumna]==0&&j<LICZBA_wierszy&&wynik<wygrana){
+                    wynik=0;
+                 }
+                 if (wynik==wygrana){
+                    return 1;
+                 }
+            }
+          }
+     }
+// ///////////////////////////////////////////////////////
+
+        //sprawdzanie skosu takiego->"\"
+
+
+    for(int a=0;a<LICZBA_kolumn;a++){
+            wynik=0;
+            for(int i=0;i<LICZBA_kolumn-a;i++){
+
+            if(tab1[a+i][i]==gracz){wynik =wynik+1;}
+            else{wynik=0;}
+
+                if (wynik==wygrana){
+                    return 1;
+                 }
+
+
+            }
+
+    }
+
+
+    for(int a=0;a<LICZBA_kolumn;a++){
+        wynik=0;
+            for(int i=0;i<LICZBA_kolumn-a;i++){
+
+
+            if(tab1[i][a+i]==gracz){wynik =wynik+1;}
+            else{wynik=0;}
+
+                if (wynik==wygrana){
+                    return 1;
+                 }
+            }
+
+    }
+
+    // ////////////////////////////////////////////////////
+    //sprawdzanie skosu takiego->"/"
+        wynik=0;
+
+    for(int a=0;a<LICZBA_kolumn;a++){
+        wynik=0;
+            for(int i=0;i<a+1;i++){
+                //cout<<tab1[a-i][i];
+
+                if(tab1[a-i][i]==gracz){wynik =wynik+1;}
+            else{wynik=0;}
+
+                if (wynik==wygrana){
+                                        return 1;
+                 }
+
+            }
+
+    }
+
+
+
+    for(int a=0;a<LICZBA_kolumn;a++){
+        wynik=0;
+            for(int i=0;i<LICZBA_kolumn-a;i++){
+                //cout<<tab1[LICZBA_kolumn-1-i][a+i];
+
+                if(tab1[LICZBA_kolumn-1-i][a+i]==gracz){wynik =wynik+1;}
+            else{wynik=0;}
+
+                if (wynik==wygrana){
+                    return 1;
+                 }
+
+            }
+    }
+
+// ////////////////////////////////////////////////////////////////////
+     return 0;
+}
