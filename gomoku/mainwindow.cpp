@@ -9,8 +9,6 @@ MainWindow::MainWindow(QWidget *parent) :
 {
 
     ui->setupUi(this);
-    //ui->pole->hide();                   //tu jest warning
-
 
 
 
@@ -22,9 +20,3 @@ MainWindow::~MainWindow()
 }
 // ////////////////////////////////////////////
 
-void MainWindow::on_pushButton_2_clicked()
-{
-    ui->pole->show();
-
-
-}

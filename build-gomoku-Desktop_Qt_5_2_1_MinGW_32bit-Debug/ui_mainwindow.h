@@ -13,11 +13,8 @@
 #include <QtWidgets/QAction>
 #include <QtWidgets/QApplication>
 #include <QtWidgets/QButtonGroup>
-#include <QtWidgets/QGridLayout>
-#include <QtWidgets/QHBoxLayout>
 #include <QtWidgets/QHeaderView>
 #include <QtWidgets/QMainWindow>
-#include <QtWidgets/QPushButton>
 #include <QtWidgets/QWidget>
 #include "glwidget.h"
 
@@ -28,50 +25,21 @@ class Ui_MainWindow
 public:
     QWidget *centralWidget;
     GLWidget *pole;
-    QWidget *layoutWidget;
-    QHBoxLayout *horizontalLayout;
-    QPushButton *pushButton;
-    QWidget *layoutWidget1;
-    QGridLayout *gridLayout;
-    QPushButton *pushButton_2;
 
     void setupUi(QMainWindow *MainWindow)
     {
         if (MainWindow->objectName().isEmpty())
             MainWindow->setObjectName(QStringLiteral("MainWindow"));
         MainWindow->setWindowModality(Qt::ApplicationModal);
-        MainWindow->resize(519, 590);
+        MainWindow->resize(519, 518);
         centralWidget = new QWidget(MainWindow);
         centralWidget->setObjectName(QStringLiteral("centralWidget"));
         pole = new GLWidget(centralWidget);
         pole->setObjectName(QStringLiteral("pole"));
-        pole->setGeometry(QRect(10, 80, 501, 501));
-        layoutWidget = new QWidget(centralWidget);
-        layoutWidget->setObjectName(QStringLiteral("layoutWidget"));
-        layoutWidget->setGeometry(QRect(280, 10, 160, 56));
-        horizontalLayout = new QHBoxLayout(layoutWidget);
-        horizontalLayout->setSpacing(6);
-        horizontalLayout->setContentsMargins(11, 11, 11, 11);
-        horizontalLayout->setObjectName(QStringLiteral("horizontalLayout"));
-        horizontalLayout->setContentsMargins(0, 0, 0, 0);
-        pushButton = new QPushButton(centralWidget);
-        pushButton->setObjectName(QStringLiteral("pushButton"));
-        pushButton->setGeometry(QRect(280, 20, 156, 23));
-        layoutWidget1 = new QWidget(centralWidget);
-        layoutWidget1->setObjectName(QStringLiteral("layoutWidget1"));
-        layoutWidget1->setGeometry(QRect(70, 10, 161, 54));
-        gridLayout = new QGridLayout(layoutWidget1);
-        gridLayout->setSpacing(6);
-        gridLayout->setContentsMargins(11, 11, 11, 11);
-        gridLayout->setObjectName(QStringLiteral("gridLayout"));
-        gridLayout->setContentsMargins(0, 0, 0, 0);
-        pushButton_2 = new QPushButton(centralWidget);
-        pushButton_2->setObjectName(QStringLiteral("pushButton_2"));
-        pushButton_2->setGeometry(QRect(70, 20, 159, 23));
+        pole->setGeometry(QRect(10, 10, 501, 501));
         MainWindow->setCentralWidget(centralWidget);
 
         retranslateUi(MainWindow);
-        QObject::connect(pushButton, SIGNAL(clicked()), MainWindow, SLOT(close()));
 
         QMetaObject::connectSlotsByName(MainWindow);
     } // setupUi
@@ -79,8 +47,6 @@ public:
     void retranslateUi(QMainWindow *MainWindow)
     {
         MainWindow->setWindowTitle(QApplication::translate("MainWindow", "Siema", 0));
-        pushButton->setText(QApplication::translate("MainWindow", "Koniec", 0));
-        pushButton_2->setText(QApplication::translate("MainWindow", "Start", 0));
     } // retranslateUi
 
 };

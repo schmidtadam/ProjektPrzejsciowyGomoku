@@ -5,7 +5,7 @@
 #include <math.h>
 #include <QMouseEvent>
 #include <mojdll.h>
-
+#include <mojdll2.h>
 
 class GLWidget : public QGLWidget
 {
@@ -43,6 +43,7 @@ bool zapis_do_tablicy(int wiersz,int kolumna,int gracz);
 bool sprawdzanie_wygranej();
 int zero;
 Mojdll randomowo;
+Mojdll2 aha;
 };
 
 #endif

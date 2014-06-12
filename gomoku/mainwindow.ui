@@ -10,7 +10,7 @@
     <x>0</x>
     <y>0</y>
     <width>519</width>
-    <height>590</height>
+    <height>518</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -21,58 +21,10 @@
     <property name="geometry">
      <rect>
       <x>10</x>
-      <y>80</y>
+      <y>10</y>
       <width>501</width>
       <height>501</height>
      </rect>
-    </property>
-   </widget>
-   <widget class="QWidget" name="layoutWidget">
-    <property name="geometry">
-     <rect>
-      <x>280</x>
-      <y>10</y>
-      <width>160</width>
-      <height>56</height>
-     </rect>
-    </property>
-    <layout class="QHBoxLayout" name="horizontalLayout"/>
-   </widget>
-   <widget class="QPushButton" name="pushButton">
-    <property name="geometry">
-     <rect>
-      <x>280</x>
-      <y>20</y>
-      <width>156</width>
-      <height>23</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>Koniec</string>
-    </property>
-   </widget>
-   <widget class="QWidget" name="layoutWidget">
-    <property name="geometry">
-     <rect>
-      <x>70</x>
-      <y>10</y>
-      <width>161</width>
-      <height>54</height>
-     </rect>
-    </property>
-    <layout class="QGridLayout" name="gridLayout"/>
-   </widget>
-   <widget class="QPushButton" name="pushButton_2">
-    <property name="geometry">
-     <rect>
-      <x>70</x>
-      <y>20</y>
-      <width>159</width>
-      <height>23</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>Start</string>
     </property>
    </widget>
   </widget>
@@ -87,22 +39,5 @@
   </customwidget>
  </customwidgets>
  <resources/>
- <connections>
-  <connection>
-   <sender>pushButton</sender>
-   <signal>clicked()</signal>
-   <receiver>MainWindow</receiver>
-   <slot>close()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>835</x>
-     <y>75</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>478</x>
-     <y>315</y>
-    </hint>
-   </hints>
-  </connection>
- </connections>
+ <connections/>
 </ui>

@@ -37,7 +37,7 @@ void GLWidget::zmiana_gracza()
             }
 if(gracz==2)
     {
-        zapis_do_tablicy(randomowo.wiersz(),randomowo.kolumna(),gracz);
+        zapis_do_tablicy(randomowo.wiersz(),randomowo.kolumna(),gracz);// //////TUTAJ WSTAWIAMY WARTOSCI Z DLL
         gracz=1;
     }
 }

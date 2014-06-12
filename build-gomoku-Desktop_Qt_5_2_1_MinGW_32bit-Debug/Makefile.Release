@@ -17,7 +17,7 @@ CXXFLAGS      = -pipe -fno-keep-inline-dllexport -O2 -frtti -Wall -Wextra -fexce
 INCPATH       = -I..\gomoku -I"..\..\..\..\..\Qt\Qt5.2.1\5.2.1\mingw48_32\include" -I"..\..\..\..\..\Qt\Qt5.2.1\5.2.1\mingw48_32\include\QtOpenGL" -I"..\..\..\..\..\Qt\Qt5.2.1\5.2.1\mingw48_32\include\QtWidgets" -I"..\..\..\..\..\Qt\Qt5.2.1\5.2.1\mingw48_32\include\QtGui" -I"..\..\..\..\..\Qt\Qt5.2.1\5.2.1\mingw48_32\include\QtCore" -I"release" -I"." -I"." -I"..\..\..\..\..\Qt\Qt5.2.1\5.2.1\mingw48_32\mkspecs\win32-g++"
 LINKER      =        g++
 LFLAGS        =        -Wl,-s -Wl,-subsystem,windows -mthreads
-LIBS        =        -lglu32 -lopengl32 -lgdi32 -luser32 -lmingw32 -lqtmain F:\Users\Szymon\Desktop\gomoku\build-gomoku-Desktop_Qt_5_2_1_MinGW_32bit-Debug\debug\mojdll.dll -LF:\Qt\Qt5.2.1\5.2.1\mingw48_32\lib -lQt5OpenGL -lQt5Widgets -lQt5Gui -lQt5Core 
+LIBS        =        -lglu32 -lopengl32 -lgdi32 -luser32 -lmingw32 -lqtmain F:\Users\Szymon\Desktop\gomoku\build-gomoku-Desktop_Qt_5_2_1_MinGW_32bit-Debug\debug\mojdll.dll F:\Users\Szymon\Desktop\gomoku\build-gomoku-Desktop_Qt_5_2_1_MinGW_32bit-Debug\debug\mojdll2.dll -LF:\Qt\Qt5.2.1\5.2.1\mingw48_32\lib -lQt5OpenGL -lQt5Widgets -lQt5Gui -lQt5Core 
 QMAKE         = F:\Qt\Qt5.2.1\5.2.1\mingw48_32\bin\qmake.exe
 IDC           = idc
 IDL           = midl
@@ -348,6 +348,9 @@ release/moc_glwidget.cpp: ../../../../../Qt/Qt5.2.1/5.2.1/mingw48_32/include/QtO
 		../../../../../Qt/Qt5.2.1/5.2.1/mingw48_32/include/QtGui/QMouseEvent \
 		../gomoku/mojdll.h \
 		../gomoku/mojdll_global.h \
+		../gomoku/mojdll2.h \
+		../gomoku/mojdll2_global.h \
+		../gomoku/glwidget.h \
 		../gomoku/glwidget.h
 	F:\Qt\Qt5.2.1\5.2.1\mingw48_32\bin\moc.exe $(DEFINES) -D__GNUC__ -DWIN32 $(INCPATH) ..\gomoku\glwidget.h -o release\moc_glwidget.cpp
 
@@ -481,7 +484,10 @@ ui_mainwindow.h: ../gomoku/mainwindow.ui \
 		../../../../../Qt/Qt5.2.1/5.2.1/mingw48_32/include/QtGui/qsurfaceformat.h \
 		../../../../../Qt/Qt5.2.1/5.2.1/mingw48_32/include/QtGui/QMouseEvent \
 		../gomoku/mojdll.h \
-		../gomoku/mojdll_global.h
+		../gomoku/mojdll_global.h \
+		../gomoku/mojdll2.h \
+		../gomoku/mojdll2_global.h \
+		../gomoku/glwidget.h
 	F:\Qt\Qt5.2.1\5.2.1\mingw48_32\bin\uic.exe ..\gomoku\mainwindow.ui -o ui_mainwindow.h
 
 compiler_yacc_decl_make_all:
@@ -745,12 +751,6 @@ release/mainwindow.o: ../gomoku/mainwindow.cpp ../gomoku/mainwindow.h \
 		../../../../../Qt/Qt5.2.1/5.2.1/mingw48_32/include/QtGui/qinputmethod.h \
 		../../../../../Qt/Qt5.2.1/5.2.1/mingw48_32/include/QtWidgets/QButtonGroup \
 		../../../../../Qt/Qt5.2.1/5.2.1/mingw48_32/include/QtWidgets/qbuttongroup.h \
-		../../../../../Qt/Qt5.2.1/5.2.1/mingw48_32/include/QtWidgets/QGridLayout \
-		../../../../../Qt/Qt5.2.1/5.2.1/mingw48_32/include/QtWidgets/qgridlayout.h \
-		../../../../../Qt/Qt5.2.1/5.2.1/mingw48_32/include/QtWidgets/qlayout.h \
-		../../../../../Qt/Qt5.2.1/5.2.1/mingw48_32/include/QtWidgets/qlayoutitem.h \
-		../../../../../Qt/Qt5.2.1/5.2.1/mingw48_32/include/QtWidgets/qboxlayout.h \
-		../../../../../Qt/Qt5.2.1/5.2.1/mingw48_32/include/QtWidgets/QHBoxLayout \
 		../../../../../Qt/Qt5.2.1/5.2.1/mingw48_32/include/QtWidgets/QHeaderView \
 		../../../../../Qt/Qt5.2.1/5.2.1/mingw48_32/include/QtWidgets/qheaderview.h \
 		../../../../../Qt/Qt5.2.1/5.2.1/mingw48_32/include/QtWidgets/qabstractitemview.h \
@@ -768,9 +768,6 @@ release/mainwindow.o: ../gomoku/mainwindow.cpp ../gomoku/mainwindow.h \
 		../../../../../Qt/Qt5.2.1/5.2.1/mingw48_32/include/QtWidgets/qstyle.h \
 		../../../../../Qt/Qt5.2.1/5.2.1/mingw48_32/include/QtWidgets/qtabbar.h \
 		../../../../../Qt/Qt5.2.1/5.2.1/mingw48_32/include/QtWidgets/qrubberband.h \
-		../../../../../Qt/Qt5.2.1/5.2.1/mingw48_32/include/QtWidgets/QPushButton \
-		../../../../../Qt/Qt5.2.1/5.2.1/mingw48_32/include/QtWidgets/qpushbutton.h \
-		../../../../../Qt/Qt5.2.1/5.2.1/mingw48_32/include/QtWidgets/qabstractbutton.h \
 		../../../../../Qt/Qt5.2.1/5.2.1/mingw48_32/include/QtWidgets/QWidget \
 		../gomoku/glwidget.h \
 		../../../../../Qt/Qt5.2.1/5.2.1/mingw48_32/include/QtOpenGL/QGLWidget \
@@ -788,7 +785,9 @@ release/mainwindow.o: ../gomoku/mainwindow.cpp ../gomoku/mainwindow.h \
 		../../../../../Qt/Qt5.2.1/5.2.1/mingw48_32/include/QtGui/QSurfaceFormat \
 		../../../../../Qt/Qt5.2.1/5.2.1/mingw48_32/include/QtGui/qsurfaceformat.h \
 		../gomoku/mojdll.h \
-		../gomoku/mojdll_global.h
+		../gomoku/mojdll_global.h \
+		../gomoku/mojdll2.h \
+		../gomoku/mojdll2_global.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o release\mainwindow.o ..\gomoku\mainwindow.cpp
 
 release/glwidget.o: ../gomoku/glwidget.cpp ../gomoku/glwidget.h \
@@ -915,7 +914,9 @@ release/glwidget.o: ../gomoku/glwidget.cpp ../gomoku/glwidget.h \
 		../../../../../Qt/Qt5.2.1/5.2.1/mingw48_32/include/QtGui/qsurfaceformat.h \
 		../../../../../Qt/Qt5.2.1/5.2.1/mingw48_32/include/QtGui/QMouseEvent \
 		../gomoku/mojdll.h \
-		../gomoku/mojdll_global.h
+		../gomoku/mojdll_global.h \
+		../gomoku/mojdll2.h \
+		../gomoku/mojdll2_global.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o release\glwidget.o ..\gomoku\glwidget.cpp
 
 release/moc_mainwindow.o: release/moc_mainwindow.cpp 
