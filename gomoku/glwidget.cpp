@@ -10,22 +10,12 @@ GLWidget::GLWidget(QWidget *parent) :
 
 void GLWidget::initializeGL()
 {
-    gracz=1;
-
-    Wygrana=0;  //zmienna pomocnicza dotycząca ogólnej wygranej
-
-    // /////////////////////////////
-    wygrana=2;  //ilosc pionkow potrzebnych do wygranej
-    // /////////////////////////////
-
-
-
+    Wygrana=0;//zmienna pomocnicza
+gracz =1;
  zerowanie_tablicy(0);
- glClearColor(1,1,1,1);
+glClearColor(1,1,1,1);
 glViewport(0,0,500,500);
-
 }
-
 
 void GLWidget::zerowanie_tablicy(int zero){
 for(int i=0;i<LICZBA_wierszy;i++)
@@ -38,13 +28,27 @@ for(int i=0;i<LICZBA_wierszy;i++)
  }
 }
 
+void GLWidget::zmiana_gracza()
+{
+    if(gracz==1)
+    if(zapis_do_tablicy(wiersz,kolumna,gracz))
+         {
+           gracz=2;
+            }
+if(gracz==2)
+    {
+        zapis_do_tablicy(randomowo.wiersz(),randomowo.kolumna(),gracz);
+        gracz=1;
+    }
+}
+
 // /////////////////////////////////////////tworzenie planszy/////////////////////////////////////////////
-void GLWidget::pole(int r)
+    void GLWidget::pole()
 {
 
    glClear(GL_COLOR_BUFFER_BIT);
    glLineWidth(2);
-   int rozmiar=r;//TU ZMIENIAMY ROZMIAR GRY
+   int rozmiar=15;
    float przesuniecie=2000000/rozmiar;
    przesuniecie=przesuniecie*0.000001;
    float poczatek_x =-1;
@@ -72,7 +76,7 @@ void GLWidget::pole(int r)
 }
 
 
-void GLWidget::wyswietlanie_tablicy()
+    void GLWidget::wyswietlanie_tablicy()
 {
     for(int i=0;i<LICZBA_wierszy;i++)
    {
@@ -85,7 +89,7 @@ void GLWidget::wyswietlanie_tablicy()
   }
  }
 
-bool GLWidget::zapis_do_tablicy(int wiersz,int kolumna,int gracz)
+    bool GLWidget::zapis_do_tablicy(int wiersz,int kolumna,int gracz)
 {
  bool poprawne;
     if(tab1[wiersz-1][kolumna-1]==0)
@@ -98,7 +102,7 @@ return poprawne;
 
 // ///////////////////////////////////////////tworzenie pionków///////////////////////////////////////////////////////////
 
-void GLWidget::kolo(int rozmiar,int gracz,int wiersz, int kolumna)
+    void GLWidget::kolo(int rozmiar,int gracz,int wiersz, int kolumna)
 {
     ;
     wiersz=rozmiar-wiersz+1;
@@ -136,140 +140,111 @@ void GLWidget::kolo(int rozmiar,int gracz,int wiersz, int kolumna)
 
 // //////////////////////////////////////////obsługa myszki////////////////////////////////////////////////////////////
 
-void GLWidget::mouseMoveEvent(QMouseEvent *event)
+    void GLWidget::mouseMoveEvent(QMouseEvent *event)
 {
     int zx = event->pos().x();
     int zy = event->pos().y();
-    temp_wiersz=zy/33+1;
-    temp_kolumna=zx/33+1;
+    temp_wiersz=(zy/33)+1;
+    temp_kolumna=(zx/33)+1;
     updateGL();
 
 }
 
-void GLWidget::mouseReleaseEvent(QMouseEvent *event)
+    void GLWidget::mouseReleaseEvent(QMouseEvent *event)
 {
-  int dx = event->pos().x();
+           int dx = event->pos().x();
   int dy = event->pos().y();
-  if(dx>0 && dy>0 && dx<500 && dy<500){
+  if(dx>0 && dy>0 && dx<500 && dy<500)
+  {
             wiersz=dy/33+1;
             kolumna=dx/33+1;
 
             temp_wiersz=dy/33+1;
             temp_kolumna=dx/33+1;
+
   }
- if(zapis_do_tablicy(wiersz,kolumna,gracz))
-      {
-         if(gracz==1)
-         gracz=2;
-         else if(gracz==2)
-         gracz=1;
-      }
+zmiana_gracza();
 updateGL();
+
 }
 
 
 // ////////////////////////////////////////////Funkcja sprawdzajaca///////////////////////////////////////////////////////////////////////////////////////
 
-bool GLWidget::sprawdzanie_wygranej(int gracz){
+    bool GLWidget::sprawdzanie_wygranej(){
 
      int w,k,c,i;
+// Sprawdzanie w poziomie
 
-      // Sprawdzanie w poziomie
+ for(w = 0; w < 15; w++)
+ {
+  c = 1;
+ for(k = 1; k < 15; k++)
+ {
+ if(tab1[w][k-1] == tab1[w][k]) c++;
+ else c = 1;
 
-      for(w = 0; w < 15; w++)
-      {
-        c = 1;
-        for(k = 1; k < 15; k++)
-        {
-           if(tab1[w][k-1] == tab1[w][k]) c++;
-           else c = 1;
+ if((c == 5) && tab1[w][k])
+ return true;
+ }
+ }
 
-           if((c == 5) && tab1[w][k])
+//sprawdzanie w pionie
 
-             return true;
-           }
+ for(k = 0; k < 15; k++)
+ {
+ c = 1;
+ for(w = 1; w < 15; w++)
+ {
+ if(tab1[w-1][k] == tab1[w][k])
+     c++;
+     else c = 1;
+ if((c == 5) && tab1[w][k])
+ return true;
         }
+  }
 
-     // /////////////////////////////////////////////////
-        //sprawdzanie w pionie
+//sprawdzanie skosu takiego->"\"
 
-      for(k = 0; k < 15; k++)
-       {
-         c = 1;
-         for(w = 1; w < 15; w++)
-         {
-            if(tab1[w-1][k] == tab1[w][k]) c++;
-            else c = 1;
-
-            if((c == 5) && tab1[w][k])
-
-
-              return true;
-            }
-         }
-
-// ///////////////////////////////////////////////////////
-
-        //sprawdzanie skosu takiego->"\"
-
-
-      for(k = 0; k < 11; k++)
-        for(w = 0; w < 11; w++)
-        {
-           c = 1;
-           for(i = 1; i < 5; i++)
-             if(tab1[w+i-1][k+i-1] == tab1[w+i][k+i]) c++;
-             else c = 1;
-
-           if((c == 5) && tab1[w][k])
-
-              return true;
-           }
-
-    // ////////////////////////////////////////////////////
-    //sprawdzanie skosu takiego->"/"
+ for(k = 0; k < 11; k++)
+ for(w = 0; w < 11; w++)
+ {
+ c = 1;
+ for(i = 1; i < 5; i++)
+ if(tab1[w+i-1][k+i-1] == tab1[w+i][k+i]) c++;
+ else c = 1;
+ if((c == 5) && tab1[w][k])
+return true;
+ }
+//sprawdzanie skosu takiego->"/"
 for(k = 4; k < 15; k++)
-   for(w = 0; w < 11; w++)
-   {
-      c = 1;
-      for(i = 1; i < 5; i++)
-        if(tab1[w+i-1][k-i+1] == tab1[w+i][k-i]) c++;
-        else c = 1;
-
-      if((c == 5) && tab1[w][k])
-      {
-
-         return true;
-      }
-   }
-
-// ////////////////////////////////////////////////////////////////////
-     return 0;
+for(w = 0; w < 11; w++)
+{
+c = 1;
+for(i = 1; i < 5; i++)
+if(tab1[w+i-1][k-i+1] == tab1[w+i][k-i]) c++;
+else c = 1;
+if((c == 5) && tab1[w][k])
+return true;
+}
+return 0;
 }
 
 
-//RYSOWANIE
-void GLWidget::paintGL()
+
+// //////////////////////////////////////// RYSOWANIE // /////////////////////////////////////////////////////////////////////
+    void GLWidget::paintGL()
 {
-
-int rozmiar=15;
-
-pole(rozmiar);
+pole();
 wyswietlanie_tablicy();
-kolo(rozmiar,3,temp_wiersz,temp_kolumna);
+kolo(15,3,temp_wiersz,temp_kolumna);
 
-// ////////////////////////////////////////
+
 if(Wygrana==0)
     {
-        if(sprawdzanie_wygranej(1))
-            {
-             Wygrana=1;
-            }
-         else  if(sprawdzanie_wygranej(2))
-            {
-             Wygrana=1;
-            }
+        if(sprawdzanie_wygranej())
 
+             Wygrana=1;
     }
 else if(Wygrana==1)
         {
@@ -279,9 +254,9 @@ else if(Wygrana==1)
         }
 else if(Wygrana==3)
         {
-            zerowanie_tablicy(0);
-            wyswietlanie_tablicy();
-            Wygrana=0;
+    zerowanie_tablicy(0);
+    wyswietlanie_tablicy();
+    Wygrana=0;
         }
 
 }

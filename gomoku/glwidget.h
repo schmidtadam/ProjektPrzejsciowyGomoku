@@ -4,6 +4,8 @@
 #include <QGLWidget>
 #include <math.h>
 #include <QMouseEvent>
+#include <mojdll.h>
+
 
 class GLWidget : public QGLWidget
 {
@@ -13,7 +15,7 @@ public:
 
 void initializeGL();
 void paintGL();
-void pole(int r);
+void pole();
 void kolo(int rozmiar,int gracz,int wiersz, int kolumna);
 void glutPostRedisplay(void);
 void mouseMoveEvent(QMouseEvent *event);
@@ -31,18 +33,16 @@ static int const  LICZBA_wierszy =15;
 int wygrana;
 int tab1[ LICZBA_kolumn ][ LICZBA_wierszy];
 int Wygrana; //pomocnicza
-
+void zmiana_gracza();
 
 
 // ///////metody silnikowe///////
 void zerowanie_tablicy(int zero);
 void wyswietlanie_tablicy();
 bool zapis_do_tablicy(int wiersz,int kolumna,int gracz);
-bool sprawdzanie_wygranej(int gracz);
+bool sprawdzanie_wygranej();
 int zero;
-
-
-
+Mojdll randomowo;
 };
 
 #endif

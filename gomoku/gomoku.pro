@@ -1,6 +1,6 @@
 #-------------------------------------------------
 #
-# Project created by QtCreator 2014-04-03T17:30:25
+# Project created by QtCreator 2014-06-12T12:45:44
 #
 #-------------------------------------------------
 
@@ -17,6 +17,9 @@ SOURCES += main.cpp\
     glwidget.cpp
 
 HEADERS  += mainwindow.h \
-    glwidget.h
+    glwidget.h \
+    mojdll.h \
+    mojdll_global.h
 
 FORMS    += mainwindow.ui
+LIBS +="F:\Users\Szymon\Desktop\gomoku\build-gomoku-Desktop_Qt_5_2_1_MinGW_32bit-Debug\debug\mojdll.dll"
