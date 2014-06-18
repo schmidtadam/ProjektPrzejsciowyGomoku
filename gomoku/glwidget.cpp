@@ -10,7 +10,8 @@ GLWidget::GLWidget(QWidget *parent) :
 
 void GLWidget::initializeGL()
 {
-    Wygrana=0;//zmienna pomocnicza
+
+Wygrana=0;//zmienna pomocnicza
 gracz =1;
  zerowanie_tablicy(0);
 glClearColor(1,1,1,1);
@@ -28,17 +29,36 @@ for(int i=0;i<LICZBA_wierszy;i++)
  }
 }
 
+
+
+
+void GLWidget::wypisanie_tablicy()
+{
+      for(int i=0;i<15;i++)
+        for(int j=0;j<15;j++)
+          strategia2.tablica_testowa[i][j]=tab1[i][j];
+
+}
+
 void GLWidget::zmiana_gracza()
 {
+
     if(gracz==1)
+
     if(zapis_do_tablicy(wiersz,kolumna,gracz))
          {
+
            gracz=2;
+
+
             }
 if(gracz==2)
     {
-        zapis_do_tablicy(randomowo.wiersz(),randomowo.kolumna(),gracz);// //////TUTAJ WSTAWIAMY WARTOSCI Z DLL
+
+wypisanie_tablicy();
+    zapis_do_tablicy(strategia2.wiersz(),strategia2.kolumna(),gracz);// //////TUTAJ WSTAWIAMY WARTOSCI Z DLL
         gracz=1;
+
     }
 }
 

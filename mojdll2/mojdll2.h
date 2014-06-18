@@ -8,8 +8,11 @@ class MOJDLL2SHARED_EXPORT Mojdll2
 
 public:
     Mojdll2();
-    int wiersz(int x);
-    int kolumna (int y);
+    int kolumna();
+    int wiersz();
+    int tablica_testowa[15][15];
+    void taktyka();
+
 };
 
 #endif // MOJDLL2_H
