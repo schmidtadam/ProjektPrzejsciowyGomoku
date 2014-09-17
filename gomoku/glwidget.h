@@ -7,6 +7,7 @@
 #include <mojdll.h>
 #include <mojdll2.h>
 
+
 class GLWidget : public QGLWidget
 {
     Q_OBJECT

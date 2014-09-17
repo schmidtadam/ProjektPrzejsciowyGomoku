@@ -18,11 +18,10 @@ SOURCES += main.cpp\
 
 HEADERS  += mainwindow.h \
     glwidget.h \
-    mojdll.h \
-    mojdll_global.h \
     mojdll2.h \
-    mojdll2_global.h
+    mojdll2_global.h \
+    zmienneGlobalne.h
 
 FORMS    += mainwindow.ui
-LIBS +="F:\Users\Szymon\Desktop\gomoku\build-gomoku-Desktop_Qt_5_2_1_MinGW_32bit-Debug\debug\mojdll.dll"\
-       "F:\Users\Szymon\Desktop\gomoku\build-gomoku-Desktop_Qt_5_2_1_MinGW_32bit-Debug\debug\mojdll2.dll"
+LIBS +=       "F:\Users\Szymon\Desktop\gomoku\build-mojdll2-Desktop_Qt_5_2_1_MinGW_32bit-Debug\debug\mojdll2.dll"\
+ "F:\Users\Szymon\Desktop\gomoku\build-mojdll-Desktop_Qt_5_2_1_MinGW_32bit-Debug\debug\mojdll.dll"

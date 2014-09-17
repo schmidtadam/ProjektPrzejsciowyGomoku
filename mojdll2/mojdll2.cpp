@@ -1,3 +1,4 @@
+
 #include "mojdll2.h"
 
 
@@ -537,8 +538,6 @@ int Mojdll2::wiersz()
 
 
     }
-
-
 
 
 

@@ -1,7 +1,8 @@
 #include "glwidget.h"
 #include <GL/glu.h>
 #include <math.h>
-
+//#include "zmienneGlobalne.h"
+extern int zmienna;
 
 GLWidget::GLWidget(QWidget *parent) :
     QGLWidget(parent)
@@ -19,14 +20,14 @@ glViewport(0,0,500,500);
 }
 
 void GLWidget::zerowanie_tablicy(int zero){
-for(int i=0;i<LICZBA_wierszy;i++)
-  {
-    for(int j=0;j<LICZBA_kolumn;j++)
-    {
-       tab1[i][j]=zero;
-
+    for(int i=0;i<LICZBA_wierszy;i++)
+      {
+        for(int j=0;j<LICZBA_kolumn;j++)
+        {
+           tab1[i][j]=zero;
+        }
     }
- }
+
 }
 
 
@@ -43,23 +44,37 @@ void GLWidget::wypisanie_tablicy()
 void GLWidget::zmiana_gracza()
 {
 
-    if(gracz==1)
+    if(gracz==1){
 
     if(zapis_do_tablicy(wiersz,kolumna,gracz))
          {
+        if (sprawdzanie_wygranej()==0) {
+            gracz=2;
+           }
+        else if (sprawdzanie_wygranej()){
+            wygrana=1;}
+         }
 
-           gracz=2;
 
-
-            }
+    }
 if(gracz==2)
     {
 
 wypisanie_tablicy();
-    zapis_do_tablicy(strategia2.wiersz(),strategia2.kolumna(),gracz);// //////TUTAJ WSTAWIAMY WARTOSCI Z DLL
-        gracz=1;
-
+    if (zmienna==1||zmienna==0){
+            zapis_do_tablicy(strategia2.wiersz(),strategia2.kolumna(),gracz);
+    }// //////TUTAJ WSTAWIAMY WARTOSCI Z DLL
+    if (zmienna==2){
+            zapis_do_tablicy(losowa.wiersz(),losowa.kolumna(),gracz);
     }
+            if (sprawdzanie_wygranej()==0) {
+                gracz=1;
+        }
+
+            else if (sprawdzanie_wygranej()){
+             wygrana=1;}
+        }
+
 }
 
 // /////////////////////////////////////////tworzenie planszy/////////////////////////////////////////////
@@ -272,7 +287,7 @@ else if(Wygrana==1)
            Wygrana=3;
            wyswietlanie_tablicy();
         }
-else if(Wygrana==3)
+if(Wygrana==3)
         {
     zerowanie_tablicy(0);
     wyswietlanie_tablicy();
