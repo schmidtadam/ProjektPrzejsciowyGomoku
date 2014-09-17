@@ -1,28 +1,30 @@
 
-#include "mojdll2.h"
+#include "mojdll3.h"
 
 
 
-Mojdll2::Mojdll2()
+Mojdll3::Mojdll3()
 {
 
 
 }
 
-int Mojdll2::kolumna()
+int Mojdll3::kolumna()
 {
+
+
 int rozmiar=15;
 
 //zasady punktacjii punktacja
 
-    int pk1=4;                  //pionek komputera
-  int pk2=21;
-  int pk3=41;
-  int pk_ultime=205;
-  int pg1=3;                 //pionek gracza
-  int pg2=20;
-  int pg3=40;
- int pg_ultime=200;
+  int pg1=1;                  //pionek komputera
+  int pg2=1;
+  int pg3=1;
+  int pg_ultime=205;
+  int pk1=1;                 //pionek gracza
+  int pk2=1;
+  int pk3=1;
+ int pk_ultime=200;
 
                           // tworzenie tablicy punktów
  int i=0;
@@ -265,7 +267,7 @@ return temp_i+1;
 
 
 
-int Mojdll2::wiersz()
+int Mojdll3::wiersz()
 {
 
     int rozmiar=15;
@@ -273,14 +275,14 @@ int Mojdll2::wiersz()
 
     //zasady punktacjii punktacja
 
-      int pk1=4;      //pioenk komputera
-      int pk2=21;
-      int pk3=41;
-      int pk_ultime=205;
-      int pg1=3;      //pionek gracza
-      int pg2=20;
-      int pg3=40;
-     int pg_ultime=200;
+      int pg1=4;      //pioenk komputera
+      int pg2=21;
+      int pg3=41;
+      int pg_ultime=205;
+      int pk1=3;      //pionek gracza
+      int pk2=20;
+      int pk3=40;
+     int pk_ultime=200;
 
             // tworzenie tablicy punktów
      int i=0;

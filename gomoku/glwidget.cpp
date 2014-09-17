@@ -35,11 +35,14 @@ void GLWidget::zerowanie_tablicy(int zero){
 
 void GLWidget::wypisanie_tablicy()
 {
-      for(int i=0;i<15;i++)
-        for(int j=0;j<15;j++)
-          strategia2.tablica_testowa[i][j]=tab1[i][j];
+      for(int i=0;i<15;i++){
 
-}
+        for(int j=0;j<15;j++)
+        {
+          strategia2.tablica_testowa[i][j]=tab1[i][j];
+          strategia3.tablica_testowa[i][j]=tab1[i][j];
+
+}}}
 
 void GLWidget::zmiana_gracza()
 {
@@ -59,13 +62,22 @@ void GLWidget::zmiana_gracza()
     }
 if(gracz==2)
     {
-
+// //////TUTAJ WSTAWIAMY WARTOSCI Z DLL
 wypisanie_tablicy();
     if (zmienna==1||zmienna==0){
             zapis_do_tablicy(strategia2.wiersz(),strategia2.kolumna(),gracz);
-    }// //////TUTAJ WSTAWIAMY WARTOSCI Z DLL
+    }
     if (zmienna==2){
             zapis_do_tablicy(losowa.wiersz(),losowa.kolumna(),gracz);
+    }
+     if (zmienna==3)
+     {
+                zapis_do_tablicy(strategia3.wiersz(),strategia3.kolumna(),gracz);
+     }
+            {
+
+
+            }
     }
             if (sprawdzanie_wygranej()==0) {
                 gracz=1;
@@ -75,7 +87,7 @@ wypisanie_tablicy();
              wygrana=1;}
         }
 
-}
+
 
 // /////////////////////////////////////////tworzenie planszy/////////////////////////////////////////////
     void GLWidget::pole()
@@ -111,7 +123,7 @@ wypisanie_tablicy();
 }
 
 
-    void GLWidget::wyswietlanie_tablicy()
+     void GLWidget::wyswietlanie_tablicy()
 {
     for(int i=0;i<LICZBA_wierszy;i++)
    {

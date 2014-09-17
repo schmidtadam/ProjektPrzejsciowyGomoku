@@ -6,7 +6,7 @@
 #include <QMouseEvent>
 #include <mojdll.h>
 #include <mojdll2.h>
-
+#include <mojdll3.h>
 
 class GLWidget : public QGLWidget
 {
@@ -47,7 +47,7 @@ bool sprawdzanie_wygranej();
 int zero;
 Mojdll losowa;
 Mojdll2 strategia2;
-
+Mojdll3 strategia3;
 
 };
 

@@ -33,8 +33,8 @@ void MainWindow::on_b1_clicked()
 {
 
     zmienna =  1;
-    ui->tekst->setText("Strategia nr. 1");
-    ui->lcdNumber->display(zmienna);
+    ui->tekst->setText("Strategia nr. 3");
+
 
 
 }
@@ -43,6 +43,14 @@ void MainWindow::on_b2_clicked()
 {
 
     zmienna=2;
+    ui->tekst->setText("Strategia nr. 1");
+    }
+
+
+
+void MainWindow::on_b3_clicked()
+{
+
+    zmienna=3;
     ui->tekst->setText("Strategia nr. 2");
-     ui->lcdNumber->display(zmienna);
-}
+    }

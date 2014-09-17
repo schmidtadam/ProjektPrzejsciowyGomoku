@@ -11,7 +11,7 @@ public:
     int kolumna();
     int wiersz();
     int tablica_testowa[15][15];
-    void taktyka();
+
 
 };
 
